@@ -1,15 +1,25 @@
 import unittest
 import numpy as np
 
-from util import read_data_from_file, SS_Score, Max_Matrix_Score
+from algorithm import print_max_ss_scores, determine_max_ss_score, read_data_from_file, SS_Score, Max_Matrix_Score
+
+class Print_Max_SS_Score_Test_Case(unittest.TestCase):
+	def test_print_max_ss_scores(self):
+		print "\nShould print 21.00, 83.50, and  71.25 in the console on separate lines"
+		self.assertEqual(print_max_ss_scores("data.txt"), None)
+
+class Determine_Max_SS_Score_Test_Case(unittest.TestCase):
+	def test_determine_max_ss_score(self):
+		case = [["Jack Abraham", "John Evans", "Ted Dziuba"], ["iPad 2 - 4-pack", "Girl Scouts Thin Mints", "Nerf Crossbow"]]
+		self.assertEqual(determine_max_ss_score(case), 21.0)
 
 class Read_Data_From_File_Test_Case(unittest.TestCase):
 	def test_read_data_from_file(self):
 		file_path = "data.txt"
 		cases = read_data_from_file(file_path)
 		self.assertEqual(type(cases), list)
-		self.assertEqual(len(cases), 2)
-		self.assertEqual(cases[0][0][1], "Lulu")
+		self.assertEqual(len(cases), 3)
+		self.assertEqual(cases[0][0][1], "John Evans")
 
 
 customer_name = "Robert"
@@ -50,7 +60,7 @@ class SS_Score_Test_Case(unittest.TestCase):
 
 class Max_Matrix_Test_Case(unittest.TestCase):
 	def test_compute_score(self):
-		matrix_1 = np.array([[1, 3], [1, 2],[4, 5]])
+		matrix_1 = np.array([[1, 2], [1, 3],[4, 5]])
 		max_matrix_score_1 = Max_Matrix_Score(matrix_1)
 		self.assertEqual(max_matrix_score_1.compute_score(), 7)
 		matrix_2 = np.array([[3, 5, 6], [4, 2, 7]])
