@@ -121,29 +121,24 @@ class SS_Score():
 class Max_Matrix_Score():
 	def __init__(self, matrix):
 		self.matrix = matrix
-		self.used_rows = {}
 		self.used_columns = {}
 
 	def compute_score(self, current_score=0, initial_row_index=0):
 		max_score = current_score
 		for row_index in range(initial_row_index, len(self.matrix)):
 			row = self.matrix[row_index]
-			if self.used_rows.get(row_index, False) is False:
-				# ensure that used row is not reused lower on recursive stack
-				self.used_rows[row_index] = True
-				for column_index in range(0, len(row)):
-					if self.used_columns.get(column_index, False) is False:
-						cell_score = row[column_index]
-						# ensure that used column is not reused lower on recursive stack
-						self.used_columns[column_index] = True
-						# add score from cell to current score on lower level.
-						# increment row_index to ensure we don't revisit rows we have already analyzed
-						score = self.compute_score(current_score + cell_score, row_index + 1)
-						if score > max_score:
-							# current max_score always saved in each function scope and ultimately returned
-							max_score = score
-						# not currently using this column, so make available again
-						self.used_columns[column_index] = False
-				# not currently using this row, so make available again
-				self.used_rows[row_index] = False
+			for column_index in range(0, len(row)):
+				if self.used_columns.get(column_index, False) is False:
+					cell_score = row[column_index]
+					# ensure that used column is not reused lower on recursive stack
+					self.used_columns[column_index] = True
+					# add score from cell to current score on lower level.
+					# increment row_index to ensure we don't revisit rows we have already analyzed
+					# row_index ensures rows are not duplicated
+					score = self.compute_score(current_score + cell_score, row_index + 1)
+					if score > max_score:
+						# current max_score always saved in each function scope and ultimately returned
+						max_score = score
+					# not currently using this column, so make available again
+					self.used_columns[column_index] = False
 		return max_score

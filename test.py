@@ -6,7 +6,9 @@ from algorithm import print_max_ss_scores, determine_max_ss_score, read_data_fro
 class Print_Max_SS_Score_Test_Case(unittest.TestCase):
 	def test_print_max_ss_scores(self):
 		print "\nShould print 21.00, 83.50, and  71.25 in the console on separate lines"
-		self.assertEqual(print_max_ss_scores("data.txt"), None)
+		self.assertEqual(print_max_ss_scores("data/data.txt"), None)
+		print "\nShould print 24.75 and 23.00 in the console on separate lines"
+		self.assertEqual(print_max_ss_scores("data/data_2.txt"), None)
 
 class Determine_Max_SS_Score_Test_Case(unittest.TestCase):
 	def test_determine_max_ss_score(self):
@@ -15,7 +17,7 @@ class Determine_Max_SS_Score_Test_Case(unittest.TestCase):
 
 class Read_Data_From_File_Test_Case(unittest.TestCase):
 	def test_read_data_from_file(self):
-		file_path = "data.txt"
+		file_path = "data/data.txt"
 		cases = read_data_from_file(file_path)
 		self.assertEqual(type(cases), list)
 		self.assertEqual(len(cases), 3)
