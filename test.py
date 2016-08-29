@@ -5,7 +5,7 @@ from algorithm import print_max_ss_scores, determine_max_ss_score, read_data_fro
 
 class Print_Max_SS_Score_Test_Case(unittest.TestCase):
 	def test_print_max_ss_scores(self):
-		print "\nShould print 21.00, 83.50, and  71.25 in the console on separate lines"
+		print "\nShould print 21.00, 83.50, and 71.25 in the console on separate lines"
 		self.assertEqual(print_max_ss_scores("data/data.txt"), None)
 		print "\nShould print 24.75 and 23.00 in the console on separate lines"
 		self.assertEqual(print_max_ss_scores("data/data_2.txt"), None)
@@ -61,6 +61,22 @@ class SS_Score_Test_Case(unittest.TestCase):
 
 
 class Max_Matrix_Test_Case(unittest.TestCase):
+	def test_compute_score_by_row(self):
+		matrix_1 = np.array([[1, 2], [1, 3],[4, 5]])
+		max_matrix_score_1 = Max_Matrix_Score(matrix_1)
+		self.assertEqual(max_matrix_score_1.compute_score_by_row(matrix_1), 4)
+		matrix_2 = np.array([[3, 5, 6], [4, 2, 7]])
+		max_matrix_score_2 = Max_Matrix_Score(matrix_2)
+		self.assertEqual(max_matrix_score_2.compute_score_by_row(matrix_2), 12)
+
+	def test_compute_score_by_column(self):
+			matrix_1 = np.array([[1, 2], [1, 3],[4, 5]])
+			max_matrix_score_1 = Max_Matrix_Score(matrix_1)
+			self.assertEqual(max_matrix_score_1.compute_score_by_column(), 7)
+			matrix_2 = np.array([[3, 5, 6], [4, 2, 7]])
+			max_matrix_score_2 = Max_Matrix_Score(matrix_2)
+			self.assertEqual(max_matrix_score_2.compute_score_by_column(), 9)
+
 	def test_compute_score(self):
 		matrix_1 = np.array([[1, 2], [1, 3],[4, 5]])
 		max_matrix_score_1 = Max_Matrix_Score(matrix_1)

@@ -123,22 +123,37 @@ class Max_Matrix_Score():
 		self.matrix = matrix
 		self.used_columns = {}
 
-	def compute_score(self, current_score=0, initial_row_index=0):
-		max_score = current_score
-		for row_index in range(initial_row_index, len(self.matrix)):
-			row = self.matrix[row_index]
-			for column_index in range(0, len(row)):
-				if self.used_columns.get(column_index, False) is False:
-					cell_score = row[column_index]
-					# ensure that used column is not reused lower on recursive stack
-					self.used_columns[column_index] = True
-					# add score from cell to current score on lower level.
-					# increment row_index to ensure we don't revisit rows we have already analyzed
-					# row_index ensures rows are not duplicated
-					score = self.compute_score(current_score + cell_score, row_index + 1)
-					if score > max_score:
-						# current max_score always saved in each function scope and ultimately returned
-						max_score = score
-					# not currently using this column, so make available again
-					self.used_columns[column_index] = False
+	def compute_score(self):
+		row_score = self.compute_score_by_row(self.matrix)
+		column_score = self.compute_score_by_column()
+
+		max_score = row_score if row_score > column_score else column_score
+
 		return max_score
+
+	def compute_score_by_row(self, matrix, current_score=0, row_index=0):
+		if row_index == len(matrix):
+			return current_score
+
+		max_score = current_score
+		row = matrix[row_index]
+		for column_index in range(0, len(row)):
+			if self.used_columns.get(column_index, False) is False:
+				cell_score = row[column_index]
+				# ensure that used column is not reused lower on recursive stack
+				self.used_columns[column_index] = True
+				# add score from cell to current score on lower level.
+				# increment row_index to investigate next row in recursive call
+				score = self.compute_score_by_row(matrix, current_score + cell_score, row_index + 1)
+				if score > max_score:
+					# current max_score always saved in each function scope and ultimately returned
+					max_score = score
+				# not currently using this column, so make available again
+				self.used_columns[column_index] = False
+		return max_score
+
+	def compute_score_by_column(self):
+		# if there are more rows than columns, prior approach could exclude some high value fields
+		# transposing matrix allows all combinations missed by other routine to be checked
+		transposed_matrix = self.matrix.transpose()
+		return self.compute_score_by_row(transposed_matrix)
