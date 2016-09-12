@@ -1,3 +1,4 @@
+Prompt from code eval: https://www.codeeval.com/public_sc/48/
 DISCOUNT OFFERS
 CHALLENGE DESCRIPTION:
 
