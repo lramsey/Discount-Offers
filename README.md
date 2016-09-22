@@ -1,4 +1,5 @@
-Discount Offers Challenge
+# Discount-Offers
+The discount offers challenge from codeeval asks me to find the optimal pairing of products and customers based on a custom scoring rule. The details of the prompt are contained in the instructions.md file or on the web at https://www.codeeval.com/public_sc/48/.
 
 In this challenge, I have created a program that takes a file path argument with each line in that file being a test case, and prints out the maximum combined ss score for each group of products and customers.  The program is run by typing the command "python run.py [data file path]".  There is one external dependency, numpy, which is part of the scipy suite of modules.  Everything else used is within the Python Standard Library.  The classes and functions executing the algorithm live in the file algorithm.py, to isolate them from the execution logic in run.py. I also added test coverage for all functions, contained within the test.py file.  These can be run through the command "python -m unittest test".  There are also two sample ascii data files in the data folder that I included here for testing purposes.  The file data.txt contains the three test cases from the provided prompt in instructions.md (which was copied from the codeeval prompt).
 
